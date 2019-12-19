@@ -1,0 +1,29 @@
+.Layout {
+	width: 100%;
+	min-height: 100vh;
+	display: grid;
+	grid-template-areas:
+		'sidebar header header'
+		'sidebar main main'
+		'sidebar main main';
+
+	grid-template-columns: 260px 1fr;
+	grid-template-rows: var(--header-height) 100%;
+}
+
+.Content {
+	grid-area: main;
+	background: #f0f0f7;
+
+	padding: 32px 95px 100px 75px;
+}
+
+.Sidebar {
+	grid-area: sidebar;
+	background: #43425d;
+}
+
+.Header {
+	grid-area: header;
+	background: #ffffff;
+}

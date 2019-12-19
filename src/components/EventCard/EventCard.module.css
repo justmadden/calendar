@@ -1,0 +1,71 @@
+.Card {
+	position: absolute;
+	width: 201px;
+	height: 275px;
+	border: 1px solid #43425d;
+	box-shadow: 0px 3px 18px #00000029;
+	border-radius: 10px;
+	background: #fff;
+	z-index: 10;
+	padding: 20px;
+}
+.Card::after {
+	content: '';
+	position: absolute; /* Абсолютное позиционирование */
+	left: 50%;
+	top: -18px; /* Положение треугольника */
+	border: 9px solid transparent; /* Прозрачные границы */
+	border-bottom: 9px solid #43425d; /* Добавляем треугольник */
+	transform: translateX(-50%);
+	z-index: 5;
+}
+.Close {
+	position: absolute;
+	right: 7px;
+	top: 5px;
+	padding: 5px 7px;
+	border-radius: 50%;
+	border: 3px solid #d6d6d6;
+	color: #d6d6d6;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.Edit > button:nth-of-type(1) {
+	text-transform: uppercase;
+}
+
+.Controls {
+	display: flex;
+	justify-content: space-between;
+}
+.Controls button {
+	font-size: 12px;
+	cursor: pointer;
+}
+.Controls > button:nth-of-type(1) {
+	color: #ff5f5f;
+}
+.Controls > button:nth-of-type(2) {
+	color: #6a6996;
+}
+
+.EventName {
+	margin-bottom: 20px;
+}
+.EventDate {
+	margin-bottom: 20px;
+}
+.EventTime {
+	margin-bottom: 20px;
+}
+.Notes {
+	margin-bottom: 20px;
+}
+.Card input {
+	border: none;
+	border-bottom: 1px solid #43425d80;
+	outline: none;
+	font-size: 14px;
+	padding-top: 10px;
+}

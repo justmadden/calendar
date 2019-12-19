@@ -1,0 +1,111 @@
+.rbc {
+	&-month {
+		&-view {
+			border-color: #eaf0f4;
+		}
+		&-row {
+			overflow: visible;
+		}
+	}
+	&-calendar {
+		background: #fff;
+		box-shadow: 0px 2px 6px #0000000a;
+	}
+	&-toolbar {
+		&-label {
+			font-size: 18px;
+		}
+	}
+	&-btn {
+		&-group {
+			button {
+				border: 1px solid #d7dae2;
+				// &:focus {
+				// 	background: unset !important;
+				// 	box-shadow: unset !important;
+				// }
+			}
+			.rbc-active:focus,
+			.rbc-active,
+			button:hover {
+				border-color: #d7dae2 !important;
+				background: unset !important;
+				color: #3b86ff !important;
+				box-shadow: 0px 2px 3px #0000000d !important;
+			}
+		}
+	}
+	&-header {
+		background: #f5f6fa;
+		height: 45px;
+		color: #a3a6b4;
+		text-transform: uppercase;
+		border-color: #eaf0f4;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	&-event {
+		border-radius: 4px;
+		background: #3b86ff;
+		height: 30px;
+
+		&-content {
+			font-size: 13px;
+			padding: 7px 14px;
+		}
+	}
+	&-row {
+		&-content {
+			padding-top: 17px;
+		}
+		&-segment {
+			padding: 1px;
+		}
+	}
+	&-today {
+		background: #f5f6fa;
+	}
+	&-date {
+		&-cell {
+			color: #43425d;
+			padding-right: 14px;
+			&.rbc-off-range {
+				opacity: 0.3;
+			}
+			&.rbc-now {
+				font-weight: normal;
+			}
+		}
+	}
+	&-off {
+		&-range-bg {
+			background: #ffffff;
+		}
+	}
+	&-timeslot-group {
+		min-height: 49px;
+		border-color: #eaf0f4;
+		& * {
+			border-color: #eaf0f4;
+		}
+	}
+	&-time-slot {
+		.rbc-label {
+			color: #4d4f5c;
+			font-size: 13px;
+		}
+	}
+}
+.rbc-day-bg + .rbc-day-bg {
+	border-color: #eaf0f4;
+}
+.rbc-month-row + .rbc-month-row {
+	border-color: #eaf0f4;
+}
+.rbc-day-slot .rbc-time-slot {
+	border-color: transparent;
+}
+.rbc-time-content > .rbc-time-gutter {
+	width: 70px;
+}
