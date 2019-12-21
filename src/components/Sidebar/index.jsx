@@ -1,6 +1,5 @@
 import React from 'react';
 import s from './Sidebar.module.css';
-import cm from 'classnames';
 import Icon from '../Icon';
 import { NavLink } from 'react-router-dom';
 import config from '../../pages/config';
@@ -13,6 +12,7 @@ export default function Sidebar() {
 				{map(config, nav => {
 					return (
 						<NavLink
+							key={nav.to}
 							exact={nav.exact}
 							to={nav.to}
 							activeClassName={s.Active}>

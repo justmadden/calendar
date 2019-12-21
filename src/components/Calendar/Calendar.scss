@@ -86,6 +86,7 @@
 	&-timeslot-group {
 		min-height: 49px;
 		border-color: #eaf0f4;
+
 		& * {
 			border-color: #eaf0f4;
 		}
@@ -108,4 +109,24 @@
 }
 .rbc-time-content > .rbc-time-gutter {
 	width: 70px;
+}
+.rbc-event.rbc-selected {
+	outline: none;
+	background-color: transparent;
+	border: 1px solid #3b86ff;
+	color: #3b86ff;
+}
+
+.rbc-timeslot-group .rbc-time-slot {
+	display: flex;
+	align-items: flex-end;
+}
+.rbc-time-view {
+	.rbc-timeslot-group,
+	.rbc-time-slot {
+		display: flex;
+		align-items: flex-end;
+		width: 100%;
+		justify-content: center;
+	}
 }

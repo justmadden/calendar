@@ -3,30 +3,44 @@ import s from './EventCard.module.css';
 import cm from 'classnames';
 import DateTime from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './Date.css';
-function EventCard({ x, y, onClose, isEdit, title, onCreate, date, onChange }) {
+function EventCard({
+	x,
+	y,
+	id,
+	title,
+	start,
+	note,
+	isEdit,
+	onClose,
+	onCreate,
+	onChange,
+	onRemove
+}) {
 	const [_title, setTitle] = useState(title);
-	const [startDate, setStartDate] = useState(date);
-	const [note, setNote] = useState('');
+	const [startDate, setStartDate] = useState(start);
+	const [_note, setNote] = useState(note);
 	return (
 		<div
 			className={s.Card}
 			style={{
-				top: `${y - 80}px`,
-				left: `${x - 435}px`
+				top: `${y}px`,
+				left: `${x}px`
 			}}>
 			<div className={s.Close} onClick={onClose}>
 				X
 			</div>
 			<div className={s.EventName}>
+				<label>Event name</label>
 				<input
 					value={_title}
+					maxLength={30}
 					onChange={e => {
 						setTitle(e.target.value);
 					}}
 				/>
 			</div>
 			<div className={s.EventDate}>
+				<label>Event date</label>
 				<DateTime
 					selected={startDate}
 					onChange={date => {
@@ -36,6 +50,7 @@ function EventCard({ x, y, onClose, isEdit, title, onCreate, date, onChange }) {
 				/>
 			</div>
 			<div className={s.EventTime}>
+				<label>Event time</label>
 				<DateTime
 					selected={startDate}
 					onChange={date => setStartDate(date)}
@@ -47,8 +62,9 @@ function EventCard({ x, y, onClose, isEdit, title, onCreate, date, onChange }) {
 				/>
 			</div>
 			<div className={s.EventName}>
+				<label>Note</label>
 				<input
-					value={note}
+					value={_note}
 					onChange={e => {
 						setNote(e.target.value);
 					}}
@@ -57,13 +73,15 @@ function EventCard({ x, y, onClose, isEdit, title, onCreate, date, onChange }) {
 			<div className={cm(s.Controls, { [s.Edit]: isEdit })}>
 				{isEdit ? (
 					<>
-						<button>Discard</button>
+						<button onClick={() => onRemove(id)}>Discard</button>
 						<button
 							onClick={() => {
 								onChange({
 									title: _title,
 									start: startDate,
-									note
+									end: startDate,
+									note: _note,
+									id: id
 								});
 							}}>
 							Edit
@@ -71,13 +89,13 @@ function EventCard({ x, y, onClose, isEdit, title, onCreate, date, onChange }) {
 					</>
 				) : (
 					<>
-						<button>Cancel</button>
+						<button onClick={onClose}>Cancel</button>
 						<button
 							onClick={() => {
 								onCreate({
 									title: _title,
 									start: startDate,
-									note
+									note: _note
 								});
 							}}>
 							Save
@@ -93,8 +111,10 @@ EventCard.defaultProps = {
 	y: 0,
 	onClose: () => {},
 	onCreate: () => {},
+	onRemove: () => {},
 	title: '',
-	time: '',
-	date: ''
+	time: Date.now(),
+	start: Date.now(),
+	note: ''
 };
 export default EventCard;

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import CalenadPage from './Calendar';
+import { Route } from 'react-router-dom';
 import config from './config';
 import { map } from 'lodash-es';
 import Layout from '../components/Layout';
@@ -10,6 +9,7 @@ function Pages() {
 			{map(config, nav => (
 				<Route
 					exact={nav.exact}
+					key={nav.path}
 					path={nav.path}
 					component={nav.component}
 				/>

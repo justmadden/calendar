@@ -5,3 +5,8 @@
 body {
 	font-family: 'Source Sans Pro', sans-serif;
 }
+#modal-portal {
+	position: absolute;
+	left: 0;
+	top: 0;
+}

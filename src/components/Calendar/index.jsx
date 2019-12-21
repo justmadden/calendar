@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Calendar as CalendarLib, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+
 import 'react-big-calendar/lib/sass/styles.scss';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import './Calendar.scss';
+
 const DnDCalendar = withDragAndDrop(CalendarLib);
 const localizer = momentLocalizer(moment);
 
@@ -47,7 +49,6 @@ class Calendar extends Component {
 			<>
 				<DnDCalendar
 					selectable
-					resizableAccessor={false}
 					localizer={localizer}
 					events={events}
 					startAccessor="start"
@@ -56,9 +57,6 @@ class Calendar extends Component {
 					onEventResize={this.resizeEvent}
 					onSelectSlot={handleSelect}
 					onSelectEvent={onSelectEvent}
-					components={{
-						event: this.eventComponent
-					}}
 				/>
 			</>
 		);

@@ -1,0 +1,49 @@
+.Header {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	padding: 0 20px;
+	justify-content: space-between;
+	align-items: center;
+}
+.LeftSide {
+	display: flex;
+	align-items: center;
+}
+.LeftSide input {
+	color: #4d4f5c;
+	background: transparent;
+	border: none;
+	outline: none;
+	margin-left: 10px;
+	width: 200px;
+}
+.RightSide {
+	display: flex;
+	align-items: center;
+}
+.Icons {
+	display: flex;
+}
+.Icons svg {
+	margin: 0 15px;
+}
+.Avatar {
+	width: 38px;
+	height: 38px;
+	margin-left: 11px;
+	background: #4d4f5c;
+	border-radius: 50%;
+}
+
+.Name {
+	color: #4d4f5c;
+	font-size: 13px;
+	margin-right: 15px;
+}
+.Divider {
+	width: 1px;
+	height: 28px;
+	margin-right: 21px;
+	background: #ebebf2;
+}

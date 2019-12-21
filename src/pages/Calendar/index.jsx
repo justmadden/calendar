@@ -3,40 +3,67 @@ import Calendar from '../../components/Calendar';
 import EventCard from '../../components/EventCard';
 import s from './CalendarPage.module.css';
 import { ID } from '../../helper';
+import ModalPortal from '../../components/ModalPortal';
 
 class CalendarPage extends Component {
-	state = {
-		card: {
-			isVisible: false,
-			x: 0,
-			y: 0,
-			isEdit: false,
-			selected: null
-		},
-		events: [
-			{
-				id: ID(),
-				title: 'Go shop',
-				start: new Date(),
-				end: new Date()
+	constructor(props) {
+		super(props);
+		this.state = {
+			card: {
+				isVisible: false,
+				isEdit: false,
+				selected: null
 			},
-			{
-				id: ID(),
-				title: 'Get order',
-				start: new Date(),
-				end: new Date()
+			events: [
+				{
+					id: ID(),
+					title: 'Go shop',
+					start: new Date(),
+					end: new Date()
+				},
+				{
+					id: ID(),
+					title: 'Get order',
+					start: new Date(),
+					end: new Date()
+				}
+			],
+			mousePosition: {
+				x: 0,
+				y: 0
 			}
-		]
-	};
-	handleSelect = arg => {
-		console.log(arg);
+		};
+		this.refCalendarBlock = React.createRef();
+		this.el = document.createElement('div');
+	}
+	componentDidMount() {
+		this.refCalendarBlock.current.addEventListener(
+			'mousemove',
+			this.onMouseUpdate,
+			false
+		);
+		this.refCalendarBlock.current.addEventListener(
+			'mouseenter',
+			this.onMouseUpdate,
+			false
+		);
+	}
+	componentWillUnmount() {
+		this.refCalendarBlock.current.removeEventListener(
+			'mousemove',
+			this.onMouseUpdate
+		);
+		this.refCalendarBlock.current.removeEventListener(
+			'mouseenter',
+			this.onMouseUpdate
+		);
+	}
+	handleSelect = ({ start }) => {
 		if (!this.state.card.isVisible) {
 			this.setState({
 				card: {
 					isVisible: true,
-					x: arg.box.x,
-					y: arg.box.y,
-					date: arg.start
+					date: start
 				}
 			});
 		}
@@ -44,11 +71,12 @@ class CalendarPage extends Component {
 	onClose = () => {
 		this.setState({ card: { isVisible: false } });
 	};
-	onCreate = ({ title, start }) => {
+	onCreate = ({ title, start, note }) => {
 		const newEvent = {
 			title: title,
 			start: start,
 			end: start,
+			note: note,
 			id: ID()
 		};
 		this.setState(state => {
@@ -56,8 +84,9 @@ class CalendarPage extends Component {
 				...state,
 				events: [...state.events, newEvent],
 				card: {
-					...state.card,
-					isVisible: false
+					isVisible: false,
+					isEdit: false,
+					selected: null
 				}
 			};
 		});
@@ -65,23 +94,53 @@ class CalendarPage extends Component {
 	onChangeEvents = events => {
 		this.setState({ events });
 	};
-	onChange = event => {
+	onRemove = id => {
 		this.setState(state => {
-			const arr = [...state.events];
-			const index = arr.findIndex(item => item.id === event.id);
-			if (index) {
-				arr.slice(index, 1, event);
+			const index = state.events.findIndex(item => item.id === id);
+			if (index !== -1) {
+				const events = state.events;
+				events.splice(index, 1);
 				return {
 					...state,
-					events: arr
+					events: events,
+					card: {
+						...state.card,
+						isVisible: false,
+						isEdit: false,
+						selected: null
+					}
 				};
 			}
 		});
 	};
+	onChange = event => {
+		this.setState(state => {
+			const arr = [...state.events];
+			const index = arr.findIndex(item => item.id === event.id);
+			if (index !== -1) {
+				arr.splice(index, 1, event);
+				return {
+					...state,
+					events: arr,
+					card: {
+						isVisible: false,
+						isEdit: false,
+						selected: null
+					}
+				};
+			}
+		});
+	};
+	onMouseUpdate = e => {
+		const x = e.pageX;
+		const y = e.pageY;
+
+		if (!this.state.card.isVisible) {
+			this.setState({ mousePosition: { x, y: y + 20 } });
+		}
+	};
+
 	onSelectEvent = (event, e) => {
-		console.log('onSelectEvent', event);
-		console.log('onSelectEvent X', e.clientX);
-		console.log('onSelectEvent Y', e.clientY);
 		this.setState(state => {
 			return {
 				...state,
@@ -98,30 +157,34 @@ class CalendarPage extends Component {
 	};
 	render() {
 		const {
-			card: { isVisible, x, y, date, selected, isEdit },
-			events
+			card: { isVisible, date, selected, isEdit },
+			events,
+			mousePosition: { x, y }
 		} = this.state;
-		console.log('events', events);
 		return (
 			<div>
-				<div className={s.CalendarBlock}>
+				<div ref={this.refCalendarBlock} className={s.CalendarBlock}>
 					<Calendar
 						handleSelect={this.handleSelect}
 						events={events}
 						onChangeEvents={this.onChangeEvents}
 						onSelectEvent={this.onSelectEvent}
 					/>
+
 					{isVisible && (
-						<EventCard
-							x={x}
-							y={y}
-							onClose={this.onClose}
-							date={date}
-							isEdit={isEdit}
-							data={selected}
-							onCreate={this.onCreate}
-							onChange={this.onChange}
-						/>
+						<ModalPortal>
+							<EventCard
+								x={x}
+								y={y}
+								onClose={this.onClose}
+								start={date}
+								isEdit={isEdit}
+								{...selected}
+								onCreate={this.onCreate}
+								onChange={this.onChange}
+								onRemove={this.onRemove}
+							/>
+						</ModalPortal>
 					)}
 				</div>
 			</div>
