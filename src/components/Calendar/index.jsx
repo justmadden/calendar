@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Calendar as CalendarLib, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
 import 'react-big-calendar/lib/sass/styles.scss';
@@ -62,4 +63,16 @@ class Calendar extends Component {
 		);
 	}
 }
+
+Calendar.propTypes = {
+	events: PropTypes.arrayOf(
+		PropTypes.shape({
+			title: PropTypes.string.isRequired,
+			note: PropTypes.number.isRequired,
+			start: PropTypes.instanceOf(Date)
+		})
+	).isRequired,
+	onSelectEvent: PropTypes.func,
+	onSelectSlot: PropTypes.func
+};
 export default Calendar;

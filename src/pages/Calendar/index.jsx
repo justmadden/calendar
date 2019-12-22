@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Calendar from '../../components/Calendar';
 import EventCard from '../../components/EventCard';
 import s from './CalendarPage.module.css';
-import { ID } from '../../helper';
+import { ID } from '../../helpers';
 import ModalPortal from '../../components/ModalPortal';
 
 class CalendarPage extends Component {

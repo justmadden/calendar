@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ReactComponent as Calendar } from './calendar.svg';
 import { ReactComponent as Home } from './home.svg';
 import { ReactComponent as Arrow } from './arrow.svg';
 import { ReactComponent as Support } from './support.svg';
 import { ReactComponent as Search } from './search.svg';
-export default function Icon({ name }) {
+function Icon({ name }) {
 	switch (name) {
 		case 'calendar':
 			return <Calendar />;
@@ -20,3 +21,7 @@ export default function Icon({ name }) {
 			return null;
 	}
 }
+Icon.propTypes = {
+	name: PropTypes.string.isRequired
+};
+export default Icon;

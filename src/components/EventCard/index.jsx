@@ -3,6 +3,7 @@ import s from './EventCard.module.css';
 import cm from 'classnames';
 import DateTime from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import PropTypes from 'prop-types';
 function EventCard({
 	x,
 	y,
@@ -113,8 +114,16 @@ EventCard.defaultProps = {
 	onCreate: () => {},
 	onRemove: () => {},
 	title: '',
-	time: Date.now(),
 	start: Date.now(),
 	note: ''
+};
+EventCard.propTypes = {
+	x: PropTypes.number,
+	y: PropTypes.number,
+	onClose: PropTypes.func,
+	onCreate: PropTypes.func,
+	onRemove: PropTypes.func,
+	title: PropTypes.string,
+	start: PropTypes.instanceOf(Date)
 };
 export default EventCard;
